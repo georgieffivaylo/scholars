@@ -1,0 +1,25 @@
+server:
+  port: 9095
+
+spring:
+  application:
+    name: scholars
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: jdbc:h2:mem:scholar;MODE=PostgreSQL
+    driverClassName: org.h2.Driver
+    username: username
+    password: password
+  flyway:
+    enabled: true
+    locations: classpath:/db,/db-test
+
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        boot:
+#          jdbc: trace
