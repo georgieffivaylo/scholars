@@ -4,7 +4,7 @@ import eu.leadconsult.scholars.module.scholar.entity.Scholar;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarCreateDto;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarEditDto;
 
-public interface ScholarModifyService {
+public interface ScholarManageService {
 
     Scholar addScholar(ScholarCreateDto scholarCreateDto);
 

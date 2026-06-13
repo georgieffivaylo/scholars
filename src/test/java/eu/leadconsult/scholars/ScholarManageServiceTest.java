@@ -5,7 +5,7 @@ import eu.leadconsult.scholars.module.scholar.entity.Scholar;
 import eu.leadconsult.scholars.module.scholar.repository.ScholarRepository;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarCreateDto;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarEditDto;
-import eu.leadconsult.scholars.module.scholar.service.ScholarModifyService;
+import eu.leadconsult.scholars.module.scholar.service.ScholarManageService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -19,10 +19,10 @@ import static eu.leadconsult.scholars.module.scholar.entity.ScholarType.TEACHER;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ScholarModifyServiceTest extends SpringConfigInitTest {
+class ScholarManageServiceTest extends SpringConfigInitTest {
 
     @Autowired
-    private ScholarModifyService scholarModifyService;
+    private ScholarManageService scholarManageService;
 
     @Autowired
     private ScholarRepository scholarRepository;
@@ -32,7 +32,7 @@ class ScholarModifyServiceTest extends SpringConfigInitTest {
     void addScholar_ShouldIncreaseScholarCount_WhenOneScholarIsAdded() {
         int sizeBeforeAdding = scholarRepository.findAll().size();
         ScholarCreateDto scholarCreateDto = new ScholarCreateDto("Ivaylo 3", 20, 2, MAIN, TEACHER);
-        Scholar savedScholar = scholarModifyService.addScholar(scholarCreateDto);
+        Scholar savedScholar = scholarManageService.addScholar(scholarCreateDto);
         assertNotNull(savedScholar.getId());
         assertEquals(sizeBeforeAdding + 1, scholarRepository.findAll().size());
     }
@@ -44,7 +44,7 @@ class ScholarModifyServiceTest extends SpringConfigInitTest {
         int modifiedAge = 25;
         int modifiedGroup = 5;
         ScholarEditDto scholarEditDto = new ScholarEditDto(3L, modifiedName, modifiedAge, modifiedGroup, SECONDARY, STUDENT);
-        Scholar editedScholar = scholarModifyService.editScholar(scholarEditDto);
+        Scholar editedScholar = scholarManageService.editScholar(scholarEditDto);
 
         assertEquals(modifiedName, editedScholar.getName());
         assertEquals(modifiedAge, editedScholar.getAge());
@@ -57,7 +57,7 @@ class ScholarModifyServiceTest extends SpringConfigInitTest {
     @Order(3)
     void deleteScholar_ShouldDeleteScholar_WhenValidIdIsProvided() {
         int sizeBeforeDeleting = scholarRepository.findAll().size();
-        boolean deleted = scholarModifyService.deleteScholar(1L);
+        boolean deleted = scholarManageService.deleteScholar(1L);
         assertTrue(deleted);
         assertEquals(sizeBeforeDeleting - 1, scholarRepository.findAll().size());
     }
@@ -67,7 +67,7 @@ class ScholarModifyServiceTest extends SpringConfigInitTest {
     void editScholar_ShouldThrowNotFound_WhenInvalidIdIsProvided() {
         long id = 9999999L;
         ScholarEditDto scholarEditDto = new ScholarEditDto(id, "Ivaylo (Modified)", 25, 5, SECONDARY, STUDENT);
-        assertThrowsExactly(ScholarException.class, () -> scholarModifyService.editScholar(scholarEditDto));
+        assertThrowsExactly(ScholarException.class, () -> scholarManageService.editScholar(scholarEditDto));
     }
 
 }

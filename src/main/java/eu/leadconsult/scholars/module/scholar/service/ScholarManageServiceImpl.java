@@ -1,7 +1,6 @@
 package eu.leadconsult.scholars.module.scholar.service;
 
 import eu.leadconsult.scholars.exception.ScholarException;
-import eu.leadconsult.scholars.exception.code.ErrorCode;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
 import eu.leadconsult.scholars.module.scholar.repository.ScholarRepository;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarCreateDto;
@@ -17,7 +16,7 @@ import static eu.leadconsult.scholars.exception.code.ErrorCode.RESOURCE_NOT_FOUN
 @Slf4j
 @Service
 @AllArgsConstructor
-public class ScholarModifyServiceImpl implements ScholarModifyService {
+public class ScholarManageServiceImpl implements ScholarManageService {
 
     private final ScholarRepository scholarRepository;
     private final ModelMapper modelMapper;
