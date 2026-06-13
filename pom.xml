@@ -45,6 +45,12 @@
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
+<!--		Thymeleaf-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
 <!--		Flyway-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

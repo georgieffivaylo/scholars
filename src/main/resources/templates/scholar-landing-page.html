@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Scholars</title>
+    <style>
+        :root {
+            --bg: #f4f6fb;
+            --card: #ffffff;
+            --border: #d9deea;
+            --primary: #3457d5;
+            --primary-dark: #2942a6;
+            --danger: #d53445;
+            --text: #1f2533;
+            --muted: #6b7385;
+            --ok: #1f9d55;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 20px 28px;
+        }
+
+        header h1 { margin: 0; font-size: 22px; }
+        header p { margin: 4px 0 0; opacity: 0.85; font-size: 14px; }
+
+        main { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+
+        .tabs {
+            display: flex;
+            gap: 4px;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            border: none;
+            background: transparent;
+            padding: 12px 22px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+        }
+
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px 22px;
+            margin-bottom: 20px;
+        }
+
+        .card h2 { margin: 0 0 16px; font-size: 17px; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: var(--muted); }
+
+        input, select {
+            width: 100%;
+            padding: 9px 10px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .actions { margin-top: 16px; }
+
+        button.btn {
+            border: none;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        button.btn:hover { background: var(--primary-dark); }
+        button.btn.danger { background: var(--danger); }
+        button.btn.danger:hover { filter: brightness(0.92); }
+
+        .result {
+            margin-top: 14px;
+            font-size: 14px;
+            min-height: 20px;
+            white-space: pre-wrap;
+        }
+        .result.ok { color: var(--ok); }
+        .result.err { color: var(--danger); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+        th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+        th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .count-badge { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .hint { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Scholars</h1>
+    <p>Manage scholars and view statistics</p>
+</header>
+
+<main>
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="manage" type="button">Manage</button>
+        <button class="tab-btn" data-tab="statistics" type="button">Statistics</button>
+    </div>
+
+    <!-- ============================ MANAGE TAB ============================ -->
+    <section id="manage" class="tab-panel active">
+
+        <div class="card">
+            <h2>Add scholar</h2>
+            <form id="addForm">
+                <div class="grid">
+                    <div>
+                        <label for="add-name">Name</label>
+                        <input id="add-name" name="name" required/>
+                    </div>
+                    <div>
+                        <label for="add-age">Age</label>
+                        <input id="add-age" name="age" type="number" min="0" required/>
+                    </div>
+                    <div>
+                        <label for="add-group">Group</label>
+                        <input id="add-group" name="group" type="number" min="0" required/>
+                    </div>
+                    <div>
+                        <label for="add-course">Course</label>
+                        <select id="add-course" name="course">
+                            <option value="MAIN">MAIN</option>
+                            <option value="SECONDARY">SECONDARY</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="add-type">Scholar type</label>
+                        <select id="add-type" name="scholarType">
+                            <option value="STUDENT">STUDENT</option>
+                            <option value="TEACHER">TEACHER</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn" type="submit">Add scholar</button>
+                </div>
+                <div class="result" id="addResult"></div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Edit scholar</h2>
+            <form id="editForm">
+                <div class="grid">
+                    <div>
+                        <label for="edit-id">Id</label>
+                        <input id="edit-id" name="id" type="number" min="1" required/>
+                    </div>
+                    <div>
+                        <label for="edit-name">Name</label>
+                        <input id="edit-name" name="name" required/>
+                    </div>
+                    <div>
+                        <label for="edit-age">Age</label>
+                        <input id="edit-age" name="age" type="number" min="0" required/>
+                    </div>
+                    <div>
+                        <label for="edit-group">Group</label>
+                        <input id="edit-group" name="group" type="number" min="0" required/>
+                    </div>
+                    <div>
+                        <label for="edit-course">Course</label>
+                        <select id="edit-course" name="course">
+                            <option value="MAIN">MAIN</option>
+                            <option value="SECONDARY">SECONDARY</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="edit-type">Scholar type</label>
+                        <select id="edit-type" name="scholarType">
+                            <option value="STUDENT">STUDENT</option>
+                            <option value="TEACHER">TEACHER</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn" type="submit">Save changes</button>
+                </div>
+                <div class="result" id="editResult"></div>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Remove scholar</h2>
+            <form id="deleteForm">
+                <div class="grid">
+                    <div>
+                        <label for="delete-id">Id</label>
+                        <input id="delete-id" name="id" type="number" min="1" required/>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn danger" type="submit">Delete scholar</button>
+                </div>
+                <div class="result" id="deleteResult"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========================== STATISTICS TAB ========================== -->
+    <section id="statistics" class="tab-panel">
+
+        <div class="card">
+            <h2>Count scholars by type</h2>
+            <div class="grid">
+                <div>
+                    <label for="stat-type">Scholar type</label>
+                    <select id="stat-type">
+                        <option value="STUDENT">STUDENT</option>
+                        <option value="TEACHER">TEACHER</option>
+                    </select>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn" type="button" onclick="countByType()">Count</button>
+            </div>
+            <div class="result" id="typeCountResult"></div>
+        </div>
+
+        <div class="card">
+            <h2>Count scholars by course</h2>
+            <div class="grid">
+                <div>
+                    <label for="stat-course">Course</label>
+                    <select id="stat-course">
+                        <option value="MAIN">MAIN</option>
+                        <option value="SECONDARY">SECONDARY</option>
+                    </select>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn" type="button" onclick="countByCourse()">Count</button>
+            </div>
+            <div class="result" id="courseCountResult"></div>
+        </div>
+
+        <div class="card">
+            <h2>Students by course</h2>
+            <div class="grid">
+                <div>
+                    <label for="sc-course">Course</label>
+                    <select id="sc-course">
+                        <option value="MAIN">MAIN</option>
+                        <option value="SECONDARY">SECONDARY</option>
+                    </select>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn" type="button" onclick="studentsForCourse()">Search</button>
+            </div>
+            <div class="result" id="scResult"></div>
+            <div id="scTable"></div>
+        </div>
+
+        <div class="card">
+            <h2>Students by group</h2>
+            <div class="grid">
+                <div>
+                    <label for="sg-group">Group</label>
+                    <input id="sg-group" type="number" min="0"/>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn" type="button" onclick="studentsForGroup()">Search</button>
+            </div>
+            <div class="result" id="sgResult"></div>
+            <div id="sgTable"></div>
+        </div>
+
+        <div class="card">
+            <h2>All scholars by group and course</h2>
+            <div class="grid">
+                <div>
+                    <label for="gc-group">Group</label>
+                    <input id="gc-group" type="number" min="0"/>
+                </div>
+                <div>
+                    <label for="gc-course">Course</label>
+                    <select id="gc-course">
+                        <option value="MAIN">MAIN</option>
+                        <option value="SECONDARY">SECONDARY</option>
+                    </select>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn" type="button" onclick="allForGroupAndCourse()">Search</button>
+            </div>
+            <div class="result" id="gcResult"></div>
+            <div id="gcTable"></div>
+        </div>
+
+        <div class="card">
+            <h2>Students older than age, by course</h2>
+            <div class="grid">
+                <div>
+                    <label for="oa-age">Older than (age)</label>
+                    <input id="oa-age" type="number" min="0"/>
+                </div>
+                <div>
+                    <label for="oa-course">Course</label>
+                    <select id="oa-course">
+                        <option value="MAIN">MAIN</option>
+                        <option value="SECONDARY">SECONDARY</option>
+                    </select>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn" type="button" onclick="studentsOlderThan()">Search</button>
+            </div>
+            <div class="result" id="oaResult"></div>
+            <div id="oaTable"></div>
+        </div>
+    </section>
+</main>
+
+<script th:inline="none">
+    const MODIFY = '/api/v1/scholars/modify';
+    const STATS = '/api/v1/scholars/statistics';
+
+    // ---- Tab switching ----
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ---- Helpers ----
+    function show(id, message, ok) {
+        const el = document.getElementById(id);
+        el.textContent = message;
+        el.className = 'result ' + (ok ? 'ok' : 'err');
+    }
+
+    async function callApi(method, url, body) {
+        const opts = { method, headers: {} };
+        if (body !== undefined) {
+            opts.headers['Content-Type'] = 'application/json';
+            opts.body = JSON.stringify(body);
+        }
+        const res = await fetch(url, opts);
+        let data = null;
+        const text = await res.text();
+        if (text) {
+            try { data = JSON.parse(text); } catch (e) { data = text; }
+        }
+        if (!res.ok) {
+            const msg = (data && (data.message || data.error)) || ('Request failed (HTTP ' + res.status + ')');
+            throw new Error(msg);
+        }
+        return data;
+    }
+
+    function scholarLine(s) {
+        return `#${s.id} ${s.name} (age ${s.age}, group ${s.group}, ${s.course}, ${s.scholarType})`;
+    }
+
+    function renderTable(containerId, scholars) {
+        const container = document.getElementById(containerId);
+        if (!scholars || scholars.length === 0) {
+            container.innerHTML = '<p class="hint">No scholars found.</p>';
+            return;
+        }
+        const rows = scholars.map(s =>
+            `<tr><td>${s.id}</td><td>${s.name}</td><td>${s.age}</td><td>${s.group}</td><td>${s.course}</td><td>${s.scholarType}</td></tr>`
+        ).join('');
+        container.innerHTML =
+            `<table><thead><tr><th>Id</th><th>Name</th><th>Age</th><th>Group</th><th>Course</th><th>Type</th></tr></thead>` +
+            `<tbody>${rows}</tbody></table>`;
+    }
+
+    function num(value) {
+        return value === '' ? null : Number(value);
+    }
+
+    // ---- Manage: Add ----
+    document.getElementById('addForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const body = {
+            name: document.getElementById('add-name').value,
+            age: num(document.getElementById('add-age').value),
+            group: num(document.getElementById('add-group').value),
+            course: document.getElementById('add-course').value,
+            scholarType: document.getElementById('add-type').value
+        };
+        try {
+            const created = await callApi('POST', MODIFY + '/add', body);
+            show('addResult', 'Added: ' + scholarLine(created), true);
+            e.target.reset();
+        } catch (err) {
+            show('addResult', err.message, false);
+        }
+    });
+
+    // ---- Manage: Edit ----
+    document.getElementById('editForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const body = {
+            id: num(document.getElementById('edit-id').value),
+            name: document.getElementById('edit-name').value,
+            age: num(document.getElementById('edit-age').value),
+            group: num(document.getElementById('edit-group').value),
+            course: document.getElementById('edit-course').value,
+            scholarType: document.getElementById('edit-type').value
+        };
+        try {
+            const updated = await callApi('PUT', MODIFY + '/edit', body);
+            show('editResult', 'Updated: ' + scholarLine(updated), true);
+        } catch (err) {
+            show('editResult', err.message, false);
+        }
+    });
+
+    // ---- Manage: Delete ----
+    document.getElementById('deleteForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id = document.getElementById('delete-id').value;
+        try {
+            const result = await callApi('DELETE', MODIFY + '/delete/' + id);
+            if (result && result.result) {
+                show('deleteResult', 'Deleted scholar #' + result.scholarId, true);
+                e.target.reset();
+            } else {
+                show('deleteResult', 'Scholar #' + id + ' was not deleted', false);
+            }
+        } catch (err) {
+            show('deleteResult', err.message, false);
+        }
+    });
+
+    // ---- Statistics ----
+    async function countByType() {
+        const type = document.getElementById('stat-type').value;
+        try {
+            const data = await callApi('GET', STATS + '/scholars-by-type?scholarType=' + type);
+            document.getElementById('typeCountResult').className = 'result ok';
+            document.getElementById('typeCountResult').innerHTML =
+                `<span class="count-badge">${data.count}</span> ${data.scholarType}(s)`;
+        } catch (err) {
+            show('typeCountResult', err.message, false);
+        }
+    }
+
+    async function countByCourse() {
+        const course = document.getElementById('stat-course').value;
+        try {
+            const data = await callApi('GET', STATS + '/courses-by-type?course=' + course);
+            document.getElementById('courseCountResult').className = 'result ok';
+            document.getElementById('courseCountResult').innerHTML =
+                `<span class="count-badge">${data.count}</span> scholar(s) in ${data.course}`;
+        } catch (err) {
+            show('courseCountResult', err.message, false);
+        }
+    }
+
+    async function studentsForCourse() {
+        const course = document.getElementById('sc-course').value;
+        try {
+            // NOTE: backend path is spelled "for-corse"
+            const data = await callApi('GET', STATS + '/students/for-corse/' + course);
+            show('scResult', data.scholars.length + ' result(s)', true);
+            renderTable('scTable', data.scholars);
+        } catch (err) {
+            show('scResult', err.message, false);
+            renderTable('scTable', []);
+        }
+    }
+
+    async function studentsForGroup() {
+        const group = document.getElementById('sg-group').value;
+        try {
+            const data = await callApi('GET', STATS + '/students/for-group/' + group);
+            show('sgResult', data.scholars.length + ' result(s)', true);
+            renderTable('sgTable', data.scholars);
+        } catch (err) {
+            show('sgResult', err.message, false);
+            renderTable('sgTable', []);
+        }
+    }
+
+    async function allForGroupAndCourse() {
+        const group = document.getElementById('gc-group').value;
+        const course = document.getElementById('gc-course').value;
+        try {
+            const data = await callApi('GET', STATS + '/all/for-group/' + group + '/for-course/' + course);
+            show('gcResult', data.scholars.length + ' result(s)', true);
+            renderTable('gcTable', data.scholars);
+        } catch (err) {
+            show('gcResult', err.message, false);
+            renderTable('gcTable', []);
+        }
+    }
+
+    async function studentsOlderThan() {
+        const age = document.getElementById('oa-age').value;
+        const course = document.getElementById('oa-course').value;
+        try {
+            const data = await callApi('GET', STATS + '/students/older-than/' + age + '/for-course/' + course);
+            show('oaResult', data.scholars.length + ' result(s)', true);
+            renderTable('oaTable', data.scholars);
+        } catch (err) {
+            show('oaResult', err.message, false);
+            renderTable('oaTable', []);
+        }
+    }
+</script>
+</body>
+</html>
