@@ -1,6 +1,6 @@
 package eu.leadconsult.scholars.module.scholar.rest;
 
-import eu.leadconsult.scholars.module.scholar.rest.dto.DeletecholarResultDto;
+import eu.leadconsult.scholars.module.scholar.rest.dto.DeleteScholarResultDto;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarCreateDto;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarDto;
 import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarEditDto;
@@ -36,9 +36,9 @@ public class ScholarModifyController {
     }
 
     @DeleteMapping("delete/{scholarId}")
-    public ResponseEntity<DeletecholarResultDto> deleteScholar(@PathVariable Long scholarId) {
+    public ResponseEntity<DeleteScholarResultDto> deleteScholar(@PathVariable Long scholarId) {
         boolean deleted = scholarModifyService.deleteScholar(scholarId);
-        return ResponseEntity.status(OK).body(new DeletecholarResultDto(scholarId, deleted));
+        return ResponseEntity.status(OK).body(new DeleteScholarResultDto(scholarId, deleted));
     }
 
 }

@@ -8,11 +8,15 @@ import java.util.List;
 
 public interface ScholarStatisticsService {
 
-    int countScholarsByScholarType(ScholarType scholarType);
+    long countScholarsByScholarType(ScholarType scholarType);
 
-    int countCoursesByCourseType(Course course);
+    long countCoursesByCourseType(Course course);
 
-    List<Scholar> getScholarsForCourse(ScholarType scholarType, Course course);
+    List<Scholar> getStudentsForCourse(Course course);
 
-    List<Scholar> getScholarsForGroup(ScholarType scholarType, int group);
+    List<Scholar> getStudentsForGroup(int group);
+
+    List<Scholar> getAllForGroupAndCourse(int group, Course course);
+
+    List<Scholar> getAllStudentsForCourseOlderThan(Course course, int age);
 }

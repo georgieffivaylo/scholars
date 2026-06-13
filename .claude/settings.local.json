@@ -8,7 +8,11 @@
       "Bash(./mvnw -q test)",
       "Bash(echo \"EXIT=$?\")",
       "Bash(grep -aiE \"Tests run|BUILD SUCCESS|BUILD FAILURE\" /tmp/test.log | tail -10)",
-      "Bash(grep -aiE \"Tests run:|not found|expected:\" /tmp/test.log)"
+      "Bash(grep -aiE \"Tests run:|not found|expected:\" /tmp/test.log)",
+      "Bash(git push *)",
+      "Bash(git fetch *)",
+      "Bash(git ls-tree *)",
+      "Bash(git pull *)"
     ]
   }
 }

@@ -1,7 +1,7 @@
 package eu.leadconsult.scholars;
 
+import eu.leadconsult.scholars.module.scholar.entity.Course;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
-import eu.leadconsult.scholars.module.scholar.entity.ScholarType;
 import eu.leadconsult.scholars.module.scholar.service.ScholarStatisticsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,39 +17,60 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ScholarStatisticsServiceTest extends SpringConfigInitTest {
 
-	@Autowired
-	private ScholarStatisticsService scholarStatisticsService;
+    @Autowired
+    private ScholarStatisticsService scholarStatisticsService;
 
-	@Test
-	void countScholarsByScholarType_ShouldReturnCorrectCount_WhenScholarsExist() {
-		assertEquals(1, scholarStatisticsService.countScholarsByScholarType(STUDENT));
-		assertEquals(1, scholarStatisticsService.countScholarsByScholarType(TEACHER));
-	}
+    @Test
+    void countScholarsByScholarType_ShouldReturnCorrectCount_WhenScholarsExist() {
+        assertEquals(1, scholarStatisticsService.countScholarsByScholarType(STUDENT));
+        assertEquals(1, scholarStatisticsService.countScholarsByScholarType(TEACHER));
+    }
 
-	@Test
-	void countCoursesByCourseType_ShouldReturnCorrectCoursesCount_WhenCoursesExist() {
-		assertEquals(2, scholarStatisticsService.countCoursesByCourseType(MAIN));
-	}
+    @Test
+    void countCoursesByCourseType_ShouldReturnCorrectCoursesCount_WhenCoursesExist() {
+        assertEquals(1, scholarStatisticsService.countCoursesByCourseType(MAIN));
+        assertEquals(1, scholarStatisticsService.countCoursesByCourseType(SECONDARY));
+    }
 
-	@Test
-	void getScholarsForCourse_ShouldReturnAllScholarsForCourse_WhenCoursesIsProvided() {
-		List<Scholar> scholarsForMainCourse = scholarStatisticsService.getScholarsForCourse(ScholarType.STUDENT, MAIN);
-		boolean allInMainCourse = scholarsForMainCourse.stream().allMatch(scholar -> scholar.getCourse().equals(MAIN));
-		assertTrue(allInMainCourse);
+    @Test
+    void getStudentsForCourse_ShouldReturnAllStudentsForCourse_WhenCoursesIsProvided() {
+        List<Scholar> scholarsForMainCourse = scholarStatisticsService.getStudentsForCourse(MAIN);
+        boolean allInMainCourse = scholarsForMainCourse.stream().allMatch(scholar -> scholar.getCourse().equals(MAIN));
+        assertTrue(allInMainCourse);
 
-		List<Scholar> scholarsForSecondaryCourse = scholarStatisticsService.getScholarsForCourse(STUDENT, SECONDARY);
-		boolean allInSecondaryCourse = scholarsForSecondaryCourse.stream().allMatch(scholar -> scholar.getCourse().equals(SECONDARY));
-		assertTrue(allInSecondaryCourse);
-	}
+        List<Scholar> scholarsForSecondaryCourse = scholarStatisticsService.getStudentsForCourse(SECONDARY);
+        boolean allInSecondaryCourse = scholarsForSecondaryCourse.stream().allMatch(scholar -> scholar.getCourse().equals(SECONDARY));
+        assertTrue(allInSecondaryCourse);
+    }
 
-	@Test
-	void getScholarsForGroup_ShouldReturnAllScholarsForGroup_WhenGroupIsProvided() {
-		List<Scholar> scholarsForGroupOne = scholarStatisticsService.getScholarsForGroup(ScholarType.STUDENT, 1);
-		boolean allInGroupOne = scholarsForGroupOne.stream().allMatch(scholar -> scholar.getGroup() == 1);
-		assertTrue(allInGroupOne);
+    @Test
+    void getStudentsForGroup_ShouldReturnAllStudentsForGroup_WhenGroupIsProvided() {
+        List<Scholar> scholarsForGroupOne = scholarStatisticsService.getStudentsForGroup(1);
+        boolean allInGroupOne = scholarsForGroupOne.stream().allMatch(scholar -> scholar.getGroup() == 1);
+        assertTrue(allInGroupOne);
 
-		List<Scholar> scholarsForGroupTwo = scholarStatisticsService.getScholarsForGroup(STUDENT, 2);
-		boolean allInGroupTwo = scholarsForGroupTwo.stream().allMatch(scholar -> scholar.getGroup() == 2);
-		assertTrue(allInGroupTwo);
-	}
+        List<Scholar> scholarsForGroupTwo = scholarStatisticsService.getStudentsForGroup(2);
+        boolean allInGroupTwo = scholarsForGroupTwo.stream().allMatch(scholar -> scholar.getGroup() == 2);
+        assertTrue(allInGroupTwo);
+    }
+
+    @Test
+    void getAllForGroupAndCourse_ShouldReturnAllMatchingScholars_WhenGroupAndCourseIsProvided() {
+        int group = 1;
+        Course course = SECONDARY;
+        List<Scholar> scholarsForGroupOne = scholarStatisticsService.getAllForGroupAndCourse(group, course);
+        boolean allInGroupOneAndSecondaryCourse = scholarsForGroupOne.stream().allMatch(scholar
+                -> scholar.getGroup() == group && scholar.getCourse().equals(course));
+        assertTrue(allInGroupOneAndSecondaryCourse);
+    }
+
+    @Test
+    void getAllStudentsForCourseOlderThan_ShouldReturnAllMatchingScholars_WhenGroupAndCourseIsProvided() {
+        Course course = MAIN;
+        int age = 18;
+        List<Scholar> scholarsForGroupOne = scholarStatisticsService.getAllStudentsForCourseOlderThan(course, age);
+        boolean allInGroupOneAndSecondaryCourse = scholarsForGroupOne.stream().allMatch(scholar
+                -> scholar.getCourse() == course && scholar.getAge() > age);
+        assertTrue(allInGroupOneAndSecondaryCourse);
+    }
 }
