@@ -40,12 +40,15 @@ class ScholarModifyServiceTest extends SpringConfigInitTest {
     @Test
     @Order(2)
     void editScholar_ShouldEditScholar_WhenValidEditDtoIsProvided() {
-        ScholarEditDto scholarEditDto = new ScholarEditDto(3L, "Ivaylo (Modified)", 25, 5, SECONDARY, STUDENT);
+        String modifiedName = "Ivaylo (Modified)";
+        int modifiedAge = 25;
+        int modifiedGroup = 5;
+        ScholarEditDto scholarEditDto = new ScholarEditDto(3L, modifiedName, modifiedAge, modifiedGroup, SECONDARY, STUDENT);
         Scholar editedScholar = scholarModifyService.editScholar(scholarEditDto);
 
-        assertEquals("Ivaylo (Modified)", editedScholar.getName());
-        assertEquals(25, editedScholar.getAge());
-        assertEquals(5, editedScholar.getGroup());
+        assertEquals(modifiedName, editedScholar.getName());
+        assertEquals(modifiedAge, editedScholar.getAge());
+        assertEquals(modifiedGroup, editedScholar.getGroup());
         assertEquals(SECONDARY, editedScholar.getCourse());
         assertEquals(STUDENT, editedScholar.getScholarType());
     }
@@ -62,8 +65,9 @@ class ScholarModifyServiceTest extends SpringConfigInitTest {
     @Test
     @Order(4)
     void editScholar_ShouldThrowNotFound_WhenInvalidIdIsProvided() {
-        ScholarEditDto scholarEditDto = new ScholarEditDto(9999L, "Ivaylo (Modified)", 25, 5, SECONDARY, STUDENT);
-        assertThrows(ScholarException.class, () -> scholarModifyService.editScholar(scholarEditDto));
+        long id = 9999999L;
+        ScholarEditDto scholarEditDto = new ScholarEditDto(id, "Ivaylo (Modified)", 25, 5, SECONDARY, STUDENT);
+        assertThrowsExactly(ScholarException.class, () -> scholarModifyService.editScholar(scholarEditDto));
     }
 
 }
