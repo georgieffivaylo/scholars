@@ -10,6 +10,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 public enum ErrorCode {
 
     RESOURCE_NOT_FOUND(NOT_FOUND),
+    METHOD_ARGUMENT_NOT_VALID(BAD_REQUEST),
     RUNTIME_EXCEPTION(BAD_REQUEST);
 
     private final HttpStatus httpStatus;

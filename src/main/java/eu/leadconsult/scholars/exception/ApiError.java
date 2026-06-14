@@ -23,7 +23,6 @@ public class ApiError {
     this.message = message;
     this.errorCode = errorCode;
     timestamp = LocalDateTime.now();
-    exceptionId = UUID
-        .randomUUID().toString().replace("-", "");
+    exceptionId = UUID.randomUUID().toString();
   }
 }

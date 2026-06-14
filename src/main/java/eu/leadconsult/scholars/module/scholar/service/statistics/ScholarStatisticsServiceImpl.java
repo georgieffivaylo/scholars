@@ -1,10 +1,10 @@
-package eu.leadconsult.scholars.module.scholar.service;
+package eu.leadconsult.scholars.module.scholar.service.statistics;
 
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import eu.leadconsult.scholars.module.scholar.entity.Course;
+import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
-import eu.leadconsult.scholars.module.scholar.entity.ScholarType;
+import eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType;
 import eu.leadconsult.scholars.module.scholar.repository.ScholarRepository;
 import eu.leadconsult.scholars.module.scholar.repository.predicate.ScholarPredicate;
 import lombok.AllArgsConstructor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static eu.leadconsult.scholars.module.scholar.entity.ScholarType.STUDENT;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType.STUDENT;
 
 @Slf4j
 @Service

@@ -3,19 +3,19 @@ package eu.leadconsult.scholars;
 import eu.leadconsult.scholars.exception.ScholarException;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
 import eu.leadconsult.scholars.module.scholar.repository.ScholarRepository;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarCreateDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarEditDto;
-import eu.leadconsult.scholars.module.scholar.service.ScholarManageService;
+import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarCreateDto;
+import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarEditDto;
+import eu.leadconsult.scholars.module.scholar.service.manage.ScholarManageService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static eu.leadconsult.scholars.module.scholar.entity.Course.MAIN;
-import static eu.leadconsult.scholars.module.scholar.entity.Course.SECONDARY;
-import static eu.leadconsult.scholars.module.scholar.entity.ScholarType.STUDENT;
-import static eu.leadconsult.scholars.module.scholar.entity.ScholarType.TEACHER;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.Course.MAIN;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.Course.SECONDARY;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType.STUDENT;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType.TEACHER;
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

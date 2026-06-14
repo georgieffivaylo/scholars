@@ -1,10 +1,9 @@
 package eu.leadconsult.scholars.module.scholar.repository.predicate;
 
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import eu.leadconsult.scholars.module.scholar.entity.Course;
+import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
 import eu.leadconsult.scholars.module.scholar.entity.QScholar;
-import eu.leadconsult.scholars.module.scholar.entity.ScholarType;
+import eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType;
 import org.springframework.stereotype.Component;
 
 @Component

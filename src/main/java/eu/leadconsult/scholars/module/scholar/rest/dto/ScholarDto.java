@@ -1,7 +1,7 @@
 package eu.leadconsult.scholars.module.scholar.rest.dto;
 
-import eu.leadconsult.scholars.module.scholar.entity.Course;
-import eu.leadconsult.scholars.module.scholar.entity.ScholarType;
+import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
+import eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType;
 import lombok.Getter;
 import lombok.Setter;
 

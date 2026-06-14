@@ -1,8 +1,8 @@
-package eu.leadconsult.scholars.module.scholar.service;
+package eu.leadconsult.scholars.module.scholar.service.manage;
 
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarCreateDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarEditDto;
+import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarCreateDto;
+import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarEditDto;
 
 public interface ScholarManageService {
 

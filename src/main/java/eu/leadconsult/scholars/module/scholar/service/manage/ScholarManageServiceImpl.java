@@ -1,10 +1,10 @@
-package eu.leadconsult.scholars.module.scholar.service;
+package eu.leadconsult.scholars.module.scholar.service.manage;
 
 import eu.leadconsult.scholars.exception.ScholarException;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
 import eu.leadconsult.scholars.module.scholar.repository.ScholarRepository;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarCreateDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarEditDto;
+import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarCreateDto;
+import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarEditDto;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

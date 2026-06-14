@@ -1,5 +1,7 @@
 package eu.leadconsult.scholars.module.scholar.entity;
 
+import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
+import eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

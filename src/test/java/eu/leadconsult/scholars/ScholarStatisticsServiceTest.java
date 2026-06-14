@@ -1,17 +1,17 @@
 package eu.leadconsult.scholars;
 
-import eu.leadconsult.scholars.module.scholar.entity.Course;
+import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
-import eu.leadconsult.scholars.module.scholar.service.ScholarStatisticsService;
+import eu.leadconsult.scholars.module.scholar.service.statistics.ScholarStatisticsService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static eu.leadconsult.scholars.module.scholar.entity.Course.MAIN;
-import static eu.leadconsult.scholars.module.scholar.entity.Course.SECONDARY;
-import static eu.leadconsult.scholars.module.scholar.entity.ScholarType.STUDENT;
-import static eu.leadconsult.scholars.module.scholar.entity.ScholarType.TEACHER;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.Course.MAIN;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.Course.SECONDARY;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType.STUDENT;
+import static eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType.TEACHER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
