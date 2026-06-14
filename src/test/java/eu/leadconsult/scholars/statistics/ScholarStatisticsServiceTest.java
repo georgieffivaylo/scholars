@@ -1,5 +1,6 @@
-package eu.leadconsult.scholars;
+package eu.leadconsult.scholars.statistics;
 
+import eu.leadconsult.scholars.SpringConfigInitTest;
 import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
 import eu.leadconsult.scholars.module.scholar.service.statistics.ScholarStatisticsService;

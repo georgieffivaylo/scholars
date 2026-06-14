@@ -1,11 +1,11 @@
-package eu.leadconsult.scholars.module.scholar.rest;
+package eu.leadconsult.scholars.module.scholar.web.rest;
 
 import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
 import eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType;
-import eu.leadconsult.scholars.module.scholar.rest.dto.statistics.CourseCount;
-import eu.leadconsult.scholars.module.scholar.rest.dto.statistics.ScholarCount;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.statistics.ScholarResultDto;
+import eu.leadconsult.scholars.module.scholar.dto.statistics.CourseCount;
+import eu.leadconsult.scholars.module.scholar.dto.statistics.ScholarCount;
+import eu.leadconsult.scholars.module.scholar.dto.common.ScholarDto;
+import eu.leadconsult.scholars.module.scholar.dto.statistics.ScholarResultDto;
 import eu.leadconsult.scholars.module.scholar.service.statistics.ScholarStatisticsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

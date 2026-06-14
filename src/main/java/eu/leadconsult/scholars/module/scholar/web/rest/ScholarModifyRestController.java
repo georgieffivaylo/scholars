@@ -1,9 +1,9 @@
-package eu.leadconsult.scholars.module.scholar.rest;
+package eu.leadconsult.scholars.module.scholar.web.rest;
 
-import eu.leadconsult.scholars.module.scholar.rest.dto.manage.DeleteScholarResultDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarCreateDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.ScholarDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarEditDto;
+import eu.leadconsult.scholars.module.scholar.dto.manage.DeleteScholarResultDto;
+import eu.leadconsult.scholars.module.scholar.dto.manage.ScholarCreateDto;
+import eu.leadconsult.scholars.module.scholar.dto.common.ScholarDto;
+import eu.leadconsult.scholars.module.scholar.dto.manage.ScholarEditDto;
 import eu.leadconsult.scholars.module.scholar.service.manage.ScholarManageService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

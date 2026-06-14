@@ -1,4 +1,4 @@
-package eu.leadconsult.scholars.module.scholar.controller;
+package eu.leadconsult.scholars.module.scholar.web.mvc;
 
 import eu.leadconsult.scholars.exception.ScholarException;
 import jakarta.servlet.http.HttpServletResponse;

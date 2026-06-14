@@ -1,4 +1,4 @@
-package eu.leadconsult.scholars.module.scholar.rest.dto;
+package eu.leadconsult.scholars.module.scholar.dto.common;
 
 import eu.leadconsult.scholars.module.scholar.entity.enums.Course;
 import eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType;

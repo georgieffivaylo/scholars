@@ -1,10 +1,11 @@
-package eu.leadconsult.scholars;
+package eu.leadconsult.scholars.manage;
 
+import eu.leadconsult.scholars.SpringConfigInitTest;
 import eu.leadconsult.scholars.exception.ScholarException;
 import eu.leadconsult.scholars.module.scholar.entity.Scholar;
 import eu.leadconsult.scholars.module.scholar.repository.ScholarRepository;
-import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarCreateDto;
-import eu.leadconsult.scholars.module.scholar.rest.dto.manage.ScholarEditDto;
+import eu.leadconsult.scholars.module.scholar.dto.manage.ScholarCreateDto;
+import eu.leadconsult.scholars.module.scholar.dto.manage.ScholarEditDto;
 import eu.leadconsult.scholars.module.scholar.service.manage.ScholarManageService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;

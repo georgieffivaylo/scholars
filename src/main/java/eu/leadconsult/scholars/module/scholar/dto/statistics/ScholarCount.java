@@ -1,4 +1,4 @@
-package eu.leadconsult.scholars.module.scholar.rest.dto.statistics;
+package eu.leadconsult.scholars.module.scholar.dto.statistics;
 
 import eu.leadconsult.scholars.module.scholar.entity.enums.ScholarType;
 
