@@ -58,7 +58,7 @@ class ScholarManageServiceTest extends SpringConfigInitTest {
     @Order(3)
     void deleteScholar_ShouldDeleteScholar_WhenValidIdIsProvided() {
         int sizeBeforeDeleting = scholarRepository.findAll().size();
-        boolean deleted = scholarManageService.deleteScholar(1L);
+        boolean deleted = scholarManageService.deleteScholar(3L);
         assertTrue(deleted);
         assertEquals(sizeBeforeDeleting - 1, scholarRepository.findAll().size());
     }
